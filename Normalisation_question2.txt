@@ -1,0 +1,38 @@
+UNF:
+
+data(PersNo,Name,Dateofbirth,LabCode, LabName, ResCode, ResDesc,ResSup)
+
+
+1NF: (repeating groups afsplitsen, keys: PersNo --- PersNo, ResCode)
+
+data(PersNo, Name, Dateofbirth, LabCode, LabName)
+
+research (PersNo, ResCode, ResDesc, ResSup)
+
+
+2NF: (keys: PersNo --- LabCode --- PersNo, ResCode --- ResCode)
+
+data(PersNo, Name, Dateofbirth)
+
+pers(PersNo,LabCode)
+
+lab(LabCode, LabName)
+
+projects(PersNo, ResCode)
+
+research(ResCode, ResDesc, ResSup)
+
+
+3NF: (keys: PersNo --- PersNo, LabCode --- LabCode --- PersNo, ResCode --- ResCode)
+
+data(PersNo, Name, Dateofbirth)
+
+personnel(PersNo,LabCode)
+
+lab(LabCode, LabName)
+
+projects(PersNo, ResCode)
+
+research(ResCode, ResDesc, ResSup)
+
+
