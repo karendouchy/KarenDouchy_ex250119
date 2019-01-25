@@ -1,0 +1,57 @@
+$ mysql 
+> create database bioinf_exam
+> exit
+
+$ mysql bioinf_exam < bioinf_examen.sql
+
+# question 4
+select gene_name, ((seq_region_end-seq_region_start)+1) as size from gene order by size asc limit 1;
++-----------+------+
+| gene_name | size |
++-----------+------+
+| TRDD1     |    8 |
++-----------+------+
+
+# question 5
+select g.gene_name, count(*) as amount_transcripts from gene g JOIN transcript t ON g.gene_id=t.gene_id group by gene_name order by count(*) desc limit 1;
++-----------+--------------------+
+| gene_name | amount_transcripts |
++-----------+--------------------+
+| U6        |               1329 |
++-----------+--------------------+
+
+
+# question 6
+select chromosome, count(*) from gene where description like "%cancer%" group by chromosome order by count(*) desc limit 1 offset 1;
++------------+----------+
+| chromosome | count(*) |
++------------+----------+
+| 9          |        5 |
++------------+----------+
+
+select chromosome, count(*)as amount_exons from gene g JOIN transcript t ON g.gene_id=t.gene_id JOIN exon_transcript et ON t.transcript_id=et.transcript_id JOIN exon e ON et.exon_id=e.exon_id where chromosome=9;
++------------+--------------+
+| chromosome | amount_exons |
++------------+--------------+
+| 9          |        45679 |
++------------+--------------+
+
+
+# question 7
+select count(*) from exon;
++----------+
+| count(*) |
++----------+
+|   642590 |
++----------+
+
+
+select count(*) from exon_transcript;
++----------+
+| count(*) |
++----------+
+|  1178393 |
++----------+
+
+Er is een verschil want een transcript kan meerdere exons bevatten.
+
