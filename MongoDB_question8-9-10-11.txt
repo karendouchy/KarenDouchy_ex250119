@@ -1,0 +1,44 @@
+# question 8
+db.exam.find({method_of_admission:"TABLET, TABLET;BUCCAL, SUBLINGUAL"},{drug:1})
+
+0
+
+# question 9
+db.exam.count({"percentage_of_side_effects":{$gt:8}})
+
+399
+
+
+# question 10
+db.exam.aggregate([{$group:{_id:"$company",avgeffects:{$avg:"$percentage_of_side_effects"}}},{$match:{avgeffects:{$gt:10}}},{$sort:{avgeffects:-1}}])
+
+{ "_id" : "Galderma Laboratories, L.P.", "avgeffects" : 11.5 }
+{ "_id" : "Watson Pharmaceuticals, Inc.", "avgeffects" : 10.65 }
+{ "_id" : "Durata Therapeutics, Inc.", "avgeffects" : 10.5 }
+
+
+# question 11
+db.exam.aggregate([{$group:{_id:"$company", count:{$sum:1}, min_eff:{$min:"$percentage_of_side_effects"}, max_eff:{$max:"$percentage_of_side_effects"}}},{$match:{count:{$gt:1}}}])
+
+{ "_id" : "West-Ward Pharmaceuticals", "count" : 2, "min_eff" : 5.6, "max_eff" : 6.5 }
+{ "_id" : "ViiV Healthcare", "count" : 4, "min_eff" : 5.8, "max_eff" : 10.2 }
+{ "_id" : "Vertical Pharmaceuticals, LLC", "count" : 2, "min_eff" : 7, "max_eff" : 9.5 }
+{ "_id" : "URL Pharma, Inc.", "count" : 3, "min_eff" : 7.5, "max_eff" : 9 }
+{ "_id" : "Upsher-Smith Laboratories Inc.", "count" : 3, "min_eff" : 6, "max_eff" : 11.5 }
+{ "_id" : "Turing Pharmaceuticals LLC", "count" : 5, "min_eff" : 5.7, "max_eff" : 9 }
+{ "_id" : "Torrent Pharmaceuticals Limited", "count" : 5, "min_eff" : 5.2, "max_eff" : 8.5 }
+{ "_id" : "Teva Pharmaceuticals USA, Inc.", "count" : 3, "min_eff" : 5.2, "max_eff" : 8.5 }
+{ "_id" : "Tesaro Inc.", "count" : 3, "min_eff" : 4.5, "max_eff" : 8.1 }
+{ "_id" : "Takeda Pharmaceuticals U.S.A., Inc.", "count" : 3, "min_eff" : 7, "max_eff" : 9 }
+{ "_id" : "Synthon Pharmaceuticals Inc.", "count" : 2, "min_eff" : 7, "max_eff" : 8 }
+{ "_id" : "Spear Pharmaceuticals", "count" : 2, "min_eff" : 8.5, "max_eff" : 8.5 }
+{ "_id" : "Sirion Therapeutics, Inc.", "count" : 4, "min_eff" : 5, "max_eff" : 8.2 }
+{ "_id" : "Silvergate Pharmaceuticals, Inc.", "count" : 2, "min_eff" : 7.4, "max_eff" : 8 }
+{ "_id" : "Roche", "count" : 4, "min_eff" : 5.2, "max_eff" : 7.1 }
+{ "_id" : "Xanodyne Pharmaceuticals, Inc", "count" : 4, "min_eff" : 7, "max_eff" : 10 }
+{ "_id" : "UCB, Inc.", "count" : 4, "min_eff" : 5.5, "max_eff" : 9 }
+{ "_id" : "Qualitest Pharmaceuticals", "count" : 2, "min_eff" : 6, "max_eff" : 8.5 }
+{ "_id" : "Procter & Gamble", "count" : 2, "min_eff" : 6, "max_eff" : 6.4 }
+{ "_id" : "Pozen Inc.", "count" : 3, "min_eff" : 6, "max_eff" : 6 }
+Type "it" for more
+
